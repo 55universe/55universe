@@ -126,7 +126,19 @@ button{font:inherit;color:inherit}
 .perk.hot{color:var(--hot)}
 .add{margin-top:12px;width:100%;padding:11px;border:1px solid var(--gold-line);background:transparent;font-size:13.5px;letter-spacing:.06em;cursor:pointer;transition:all .25s}
 .add:hover{border-color:var(--gold);color:var(--gold-hi)}
-.card.on .add{background:var(--gold);border-color:var(--gold);color:#17140a;font-weight:500}
+.buy{margin-top:12px}
+.buy .add{margin-top:0}
+.step{display:grid;grid-template-columns:44px 1fr 44px;align-items:stretch;border:1px solid var(--gold)}
+.step button{background:var(--gold);color:#17140a;border:0;font-size:18px;line-height:1;cursor:pointer;padding:9px 0;transition:background .2s}
+.step button:hover{background:var(--gold-hi)}
+.step button:disabled{opacity:.4;cursor:default}
+.step .q{display:grid;place-items:center;font-family:var(--f-latin);font-size:19px;font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+.step .q small{font-family:var(--f-body);font-size:11px;font-weight:400;margin-left:2px}
+.step .q{display:flex;justify-content:center;align-items:baseline;gap:1px;padding-top:6px}
+.step.sm{display:inline-grid;grid-template-columns:28px 40px 28px;margin-top:6px;border-color:var(--gold-line)}
+.step.sm button{background:transparent;color:var(--ink);font-size:15px;padding:3px 0}
+.step.sm button:hover{background:var(--sunk);color:var(--gold-hi)}
+.step.sm .q{font-size:15px;padding-top:2px}
 
 /* 접수표 */
 .cart{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);background:var(--card);border:1px solid var(--gold-line)}
@@ -134,7 +146,7 @@ button{font:inherit;color:inherit}
 .cart-h h2{font-size:20px}
 .cart-h .en{font-family:var(--f-latin);font-style:italic;color:var(--gold);font-size:15px;margin-left:8px}
 .cart-h button{background:none;border:0;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.lines{list-style:none;margin:0;padding:14px 22px;display:grid;gap:10px;max-height:280px;overflow:auto}
+.lines{list-style:none;margin:0;padding:14px 22px;display:grid;gap:14px;max-height:340px;overflow:auto}
 .lines li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;font-size:13px}
 .lines .t{min-width:0}
 .lines .k{font-size:11px;color:var(--faint)}
@@ -355,17 +367,21 @@ const won = n => n.toLocaleString("ko-KR") + "원";
 const wonH = n => `${n.toLocaleString("ko-KR")}<small>원</small>`;
 const byId = Object.fromEntries(P.map(p=>[p.id,p]));
 const isOut = id => CONFIG.soldOut.includes(id);
-let sel = new Set();
-try{ (JSON.parse(localStorage.getItem("u55_sel")||"[]")).forEach(id=>byId[id]&&!isOut(id)&&sel.add(id)); }catch(e){}
+const MAXQ = 20;
+let qty = {};   // { 교재id: 권수 }
+try{ const saved=JSON.parse(localStorage.getItem("u55_qty")||"{}");
+  for(const [id,q] of Object.entries(saved)) if(byId[id]&&!isOut(id)&&q>0) qty[id]=Math.min(MAXQ,q|0); }catch(e){}
+const setQ = (id,q) => { q=Math.max(0,Math.min(MAXQ,q|0)); if(q) qty[id]=q; else delete qty[id]; };
 let remote = false;
 try{ remote = localStorage.getItem("u55_remote")==="1"; }catch(e){}
 
-function calc(ids, isRemote){
-  const items = ids.map(id=>byId[id]);
-  const prints = items.filter(p=>p.type==="print").length;
-  const pdfs = items.length - prints;
-  const list = items.reduce((a,p)=>a+p.list,0);
-  const price = items.reduce((a,p)=>a+p.price,0);
+// q: { 교재id: 권수 }
+function calc(q, isRemote){
+  const items = P.filter(p=>q[p.id]>0).map(p=>({...p, q:q[p.id]}));
+  const prints = items.filter(p=>p.type==="print").reduce((a,p)=>a+p.q,0);
+  const pdfs = items.filter(p=>p.type!=="print").reduce((a,p)=>a+p.q,0);
+  const list = items.reduce((a,p)=>a+p.list*p.q,0);
+  const price = items.reduce((a,p)=>a+p.price*p.q,0);
   const baseShip = prints ? (isRemote?SHIP.remote:SHIP.normal) : 0;
   const qualifies = prints>0 && (prints>=2 || pdfs>0);
   const ship = !prints ? 0 : qualifies ? (isRemote?SHIP.remoteDiscounted:0) : baseShip;
@@ -375,7 +391,7 @@ function calc(ids, isRemote){
 
 function renderBundles(){
   document.getElementById("bundles").innerHTML = BUNDLES.map((b,i)=>{
-    const c = calc(b.ids,false);
+    const c = calc(Object.fromEntries(b.ids.map(id=>[id,1])),false);
     const w = Math.round(c.now/c.was*100);
     return `<button type="button" class="bcard" data-b="${i}">
       <span class="bt">${b.t}</span><span class="bd">${b.d}</span>
@@ -388,8 +404,9 @@ function renderBundles(){
       <span class="go">이 구성 담기 →</span>
     </button>`;}).join("");
   document.querySelectorAll(".bcard").forEach(el=>el.addEventListener("click",()=>{
-    const b=BUNDLES[+el.dataset.b]; b.ids.filter(id=>!isOut(id)).forEach(id=>sel.add(id)); update();
-    flash(`‘${b.t}’ 구성을 담았어요`);
+    const b=BUNDLES[+el.dataset.b]; b.ids.filter(id=>!isOut(id)).forEach(id=>setQ(id,(qty[id]||0)+1)); update();
+    const n=Math.min(...b.ids.filter(id=>!isOut(id)).map(id=>qty[id]||0));
+    flash(n>1?`‘${b.t}’ 구성을 하나 더 담았어요 (${n}세트)`:`‘${b.t}’ 구성을 담았어요`);
   }));
 }
 
@@ -412,19 +429,34 @@ function renderCatalog(){
             <h3>${p.name}</h3><div class="sub">${p.sub}</div>
             <div class="prices">${p.price<p.list?`<s>${won(p.list)}</s><span class="pct">10%</span>`:""}<span class="p">${wonH(p.price)}</span></div>
             ${perk(p)}
-            <button type="button" class="add" data-id="${p.id}" aria-pressed="false" ${isOut(p.id)?"disabled":""}>${isOut(p.id)?"품절":"담기"}</button>
+            <div class="buy" data-id="${p.id}">${isOut(p.id)?`<button type="button" class="add" disabled>품절</button>`:""}</div>
           </div>
         </article>`).join("")}</div>
     </section>`).join("");
-  document.querySelectorAll(".add").forEach(b=>b.addEventListener("click",()=>{
-    const id=b.dataset.id; if(isOut(id)) return; sel.has(id)?sel.delete(id):sel.add(id); update();
-  }));
 }
+function stepper(id, cls){
+  const q=qty[id]||0;
+  return `<div class="step ${cls||""}" role="group" aria-label="${byId[id].name} 수량">
+    <button type="button" data-act="dec" data-id="${id}" aria-label="한 권 빼기">−</button>
+    <span class="q" aria-live="polite">${q}<small>권</small></span>
+    <button type="button" data-act="inc" data-id="${id}" aria-label="한 권 더하기" ${q>=MAXQ?"disabled":""}>+</button></div>`;
+}
+// 담기 / 수량 버튼은 한 곳에서 처리
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]"); if(!b) return;
+  const id=b.dataset.id; if(isOut(id)) return;
+  const q=qty[id]||0;
+  if(b.dataset.act==="add"||b.dataset.act==="inc") setQ(id,q+1);
+  else if(b.dataset.act==="dec") setQ(id,q-1);
+  else if(b.dataset.act==="del") setQ(id,0);
+  update();
+});
 
 function orderText(c){
   return [
     "[55유니버스 2027 초등임용 교재 접수]",
-    ...c.items.map(p=>`- ${p.name} (${p.type==="print"?"실물":"PDF"}) ${won(p.price)}`),
+    ...c.items.map(p=>`- ${p.name} (${p.type==="print"?"실물":"PDF"}) ${p.q>1?`${won(p.price)} × ${p.q}권 = ${won(p.price*p.q)}`:won(p.price)}`),
+    c.items.some(p=>p.type!=="print"&&p.q>1)?"※ 전자책 2부 이상: 받으실 분들의 이메일을 함께 적어 주세요.":"",
     c.prints?`배송비: ${won(c.ship)} (${remote?"제주·도서산간":"일반 지역"})`:"배송비: 없음 (전자책만 주문)",
     `입금하실 금액: ${won(c.now)}`,
     c.save>0?`(정상 구매 ${won(c.was)} 대비 ${won(c.save)} 절약)`:""
@@ -442,18 +474,19 @@ function formLink(c){
 const closed = () => Date.now() > new Date(CONFIG.deadline).getTime();
 
 function update(){
-  const ids = P.map(p=>p.id).filter(id=>sel.has(id));
-  const c = calc(ids, remote);
-  try{ localStorage.setItem("u55_sel", JSON.stringify(ids)); localStorage.setItem("u55_remote", remote?"1":"0"); }catch(e){}
+  const c = calc(qty, remote);
+  const ids = c.items.map(p=>p.id);
+  try{ localStorage.setItem("u55_qty", JSON.stringify(qty)); localStorage.setItem("u55_remote", remote?"1":"0"); }catch(e){}
 
   document.querySelectorAll(".card").forEach(el=>{
-    const id=el.dataset.id, on=sel.has(id); el.classList.toggle("on",on);
-    const b=el.querySelector(".add"); if(!isOut(id)){ b.textContent=on?"담김 ✓":"담기"; b.setAttribute("aria-pressed",on); }
+    const id=el.dataset.id, q=qty[id]||0; el.classList.toggle("on",q>0);
+    if(isOut(id)) return;
+    el.querySelector(".buy").innerHTML = q ? stepper(id) : `<button type="button" class="add" data-act="add" data-id="${id}">담기</button>`;
   });
 
   document.getElementById("cartBody").innerHTML = ids.length ? `<ul class="lines">${c.items.map(p=>`
-      <li><div class="t">${p.name}<div class="k">${p.type==="print"?"실물 교재":"셀프인쇄 PDF"}</div></div>
-      <div class="a">${p.price<p.list?`<s>${won(p.list)}</s>`:""}${won(p.price)}</div></li>`).join("")}</ul>`
+      <li><div class="t">${p.name}<div class="k">${p.type==="print"?"실물 교재":"셀프인쇄 PDF"} · ${won(p.price)}${p.q>1?` × ${p.q}`:""}</div>${stepper(p.id,"sm")}</div>
+      <div class="a">${p.price<p.list?`<s>${won(p.list*p.q)}</s>`:""}${won(p.price*p.q)}</div></li>`).join("")}</ul>`
     : `<div class="empty">아직 담은 교재가 없어요. 교재의 ‘담기’를 누르거나 추천 구성을 골라 보세요.</div>`;
 
   let note = "";
@@ -500,7 +533,7 @@ document.getElementById("formBtn").addEventListener("click",()=>{
   const txt=document.getElementById("copySrc").value;
   if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(()=>{});
 });
-document.getElementById("clear").addEventListener("click",()=>{ sel.clear(); update(); });
+document.getElementById("clear").addEventListener("click",()=>{ qty={}; update(); });
 const rm=document.getElementById("remote"); rm.checked=remote;
 rm.addEventListener("change",()=>{ remote=rm.checked; update(); });
 
