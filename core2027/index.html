@@ -102,14 +102,20 @@ footer{padding:30px 0 90px;color:var(--sub);font-size:13px;text-align:center}
 .hitpill b{font-weight:900}.hitpill span{background:#fff;color:#d9562a;border-radius:999px;padding:3px 10px;font-weight:800;font-size:12.5px;white-space:nowrap}
 #hits h2{font-family:"Gothic A1",sans-serif;font-weight:900;font-size:clamp(24px,3.4vw,34px);letter-spacing:-.02em;word-break:keep-all}
 .rvhead{margin:30px 0 14px}.rvhead h3{font:900 clamp(20px,2.6vw,26px)/1.35 "Gothic A1",sans-serif;color:#262a6e;margin:8px 0 4px;letter-spacing:-.02em;word-break:keep-all}.rvhead p{margin:0;color:var(--sub);font-size:14.5px}
-.rvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px}
-.rv{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 22px rgba(90,80,200,.07);min-width:0}
+.rvwin{position:relative;height:560px;overflow:hidden;border-radius:22px;background:linear-gradient(180deg,#f6f4ff,#fbfaff);border:1px solid var(--line);padding:14px 14px 0;-webkit-mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent)}
+.rvgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0 0 14px;animation:rvup 70s linear infinite}
+.rvwin:hover .rvgrid,.rvwin.hold .rvgrid{animation-play-state:paused}
+@keyframes rvup{to{transform:translateY(-50%)}}
+.rv{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 18px rgba(90,80,200,.07);min-width:0}
 .rv .rt{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.rv .rg{background:#2c2f7a;color:#fff;border-radius:999px;padding:3px 10px;font-weight:800;font-size:12px}
-.rv .ok{background:#fff1ea;color:#d9562a;border-radius:999px;padding:3px 10px;font-weight:900;font-size:12px}.rv .ar{color:var(--sub);font-weight:700;font-size:12.5px}
-.rv q{display:block;quotes:none;font-size:15px;line-height:1.7;color:#2b2e5e;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
+.rv .ar{color:var(--sub);font-weight:700;font-size:12.5px}
+.rv q{display:block;quotes:none;font-size:15.5px;line-height:1.75;color:#2b2e5e;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
 .rv .who{margin-top:auto;font-weight:800;font-size:13px;color:#5b55d6}
-.rvmore{display:none;margin:14px auto 0;border:1px solid var(--line)}
-@media(max-width:760px){.rvgrid.fold .rv:nth-child(n+5){display:none}.rvgrid.fold+.rvmore{display:flex}.hitpill{margin:8px 0 0}}.hitsum{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
+.rvtip{margin:8px 2px 0;font-size:12.5px;color:var(--sub)}
+@media(max-width:1000px){.rvgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.rvgrid{grid-template-columns:1fr;animation-duration:110s}.rvwin{height:480px}}
+@media (prefers-reduced-motion:reduce){.rvgrid{animation:none}.rvwin{overflow:auto}.rv.dup{display:none}}
+@media(max-width:760px){.hitpill{margin:8px 0 0}}.hitsum{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
 .hitsum .hs{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 16px;font-weight:800;color:#262a6e}.hitsum .hs b{font:800 26px Poppins,sans-serif;color:#e0632e;margin:0 2px}
 .hitsum .tot{background:linear-gradient(90deg,#ff9566,#d9562a);color:#fff;border:0}.hitsum .tot b{color:#fff}
 .marq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
@@ -200,9 +206,8 @@ footer{padding:30px 0 90px;color:var(--sub);font-size:13px;text-align:center}
 <div class="marq"><div class="mtrack" id="mtrack"></div></div>
 <p class="hitnote">2026학년도 기출은 응시자 기억을 모아 재구성한 문항 기준이에요.</p>
 <div class="rvhead"><span class="rstep">REVIEW</span><h3>시험장에서 코어를 떠올린 합격자들</h3><p>적중 문항마다 그 지역 합격자가 직접 남긴 후기예요.</p></div>
-<div class="rvgrid" id="rvgrid"></div>
-<button type="button" class="btn ghost rvmore" id="rvmore">후기 더 보기</button>
-<p class="hitnote">실제 합격자 후기를 게시 동의를 받아 그대로 옮겼어요. 이름은 일부 가렸어요.</p>
+<div class="rvwin" id="rvwin"><div class="rvgrid" id="rvgrid"></div></div>
+<p class="rvtip">실제 합격자 후기를 게시 동의를 받아 그대로 옮겼어요(이름 일부 가림). 마우스를 올리거나 누르면 멈춰요.</p>
 </div></section>
 
 <section id="why" style="padding-bottom:10px"><div class="wrap">
@@ -587,8 +592,9 @@ function matrix(){
 const _render = render; render = function(){ _render(); matrix(); };
 if(!EB){ const e=document.getElementById('ebline'); if(e) e.style.display='none'; }
 (function(){ const g=document.getElementById('rvgrid');
-  g.innerHTML=REVIEWS.map(r=>`<article class="rv"><div class="rt"><span class="rg">${esc(r.region)}</span><span class="ok">적중</span><span class="ar">${esc(r.area)} · 코어 ${esc(r.core)}</span></div><q>${esc(r.text)}</q><span class="who">${esc(r.who)}</span></article>`).join('');
-  g.classList.add('fold'); document.getElementById('rvmore').onclick=function(){g.classList.remove('fold');this.remove();};
+  const card=(r,d)=>`<article class="rv${d?' dup':''}"${d?' aria-hidden="true"':''}><div class="rt"><span class="rg">${esc(r.region)}</span><span class="ar">${esc(r.area)}</span></div><q>${esc(r.text)}</q><span class="who">${esc(r.who)}</span></article>`;
+  g.innerHTML=REVIEWS.map(r=>card(r,0)).join('')+REVIEWS.map(r=>card(r,1)).join('');
+  const w=document.getElementById('rvwin'); w.addEventListener('click',()=>w.classList.toggle('hold'));
 })();
 (function(){ const tot=Object.values(HITS).reduce((a,v)=>a+v.length,0);
   document.getElementById('hitsum').innerHTML = `<span class="hs tot">작년 코어 적중 <b>${tot}</b>문항</span>`+Object.entries(HITS).map(([r,v])=>`<span class="hs">${r} <b>${v.length}</b>문항</span>`).join('');
