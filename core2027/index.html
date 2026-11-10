@@ -171,6 +171,7 @@ const REGIONS = ['전체','서울','경기','평가원','대구','경북','충�
 const LV = l => '코어 '+l;
 const ORDER = {'0':0,'Z':1,'1':2,'2':3,'3':4};
 const sel = new Set(); let cur = '전체';
+const approx = n => n >= 100 ? Math.round(n/10)*10 : n;
 const won = n => n === 0 ? '무료' : n.toLocaleString('ko-KR') + '원';
 function fits(it, r){ if(r==='전체') return true; if(it.region===r||it.region==='공통') return true; if((r==='경북'||r==='충북') && it.region==='평가원') return true; return false; }
 function shelf(){
@@ -184,7 +185,7 @@ let render = function(){
    <div class="card ${sel.has(it.key)?'sel':''}"><div class="mini"><img src="${it.img}" alt="${it.name} 표지" loading="lazy"></div>
     <div><div class="top"><span class="badge b${it.lv}">${LV(it.lv)}</span><span class="reg">${it.region}</span></div>
     <h3>${it.name}</h3><p>${it.desc}</p>
-    <div class="bot"><div class="price ${it.price===0?'free':''}">${won(it.price)}${it.pages?`<small>PDF ${it.pages}쪽</small>`:''}</div>
+    <div class="bot"><div class="price ${it.price===0?'free':''}">${won(it.price)}${it.pages?`<small>PDF ${approx(it.pages)}쪽 내외</small>`:''}</div>
     ${it.price===0?'<span class="reg">나눔 게시물에서</span>':`<label class="chk"><input type="checkbox" data-k="${it.key}" ${sel.has(it.key)?'checked':''}>담기</label>`}</div></div>
    </div>`).join('');
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{cur=b.dataset.r;render();});
