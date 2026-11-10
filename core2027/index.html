@@ -86,10 +86,14 @@ label.chk input{width:18px;height:18px;accent-color:#5b55d6}
 .alt{margin-top:12px;font-size:13.5px;color:var(--sub)}.alt b{color:#262a6e}
 @media(max-width:820px){.reco{grid-template-columns:1fr}}
 .mx{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 22px rgba(90,80,200,.06)}
-.mx table{width:100%;border-collapse:collapse;min-width:680px}.mx th,.mx td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:center;font-size:13.5px}
+.mx table{width:100%;border-collapse:collapse;min-width:800px}.mx th,.mx td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:center;font-size:13.5px}
 .mx th{background:var(--soft);color:#262a6e}.mx td:first-child{font-weight:900;color:#262a6e;white-space:nowrap}
 .mxb{border:2px solid #b9b3ff;background:#fff;border-radius:12px;padding:6px 8px;font:800 12.5px inherit;color:#3b3f9a;cursor:pointer;line-height:1.35}
-.mxb.on{background:#5b55d6;color:#fff;border-color:#5b55d6}.mxb small{display:block;font-weight:600;opacity:.8}.mx .na{color:#a3a6c4;font-size:12.5px}
+.mxb.on{background:#5b55d6;color:#fff;border-color:#5b55d6}
+.mx th.zc{background:#ece9ff;color:#3b35a8}.mx td.zc{background:#f7f5ff}
+.mxb.z{white-space:nowrap;border-color:#7d77ef;background:linear-gradient(180deg,#fff,#f1efff);box-shadow:0 4px 10px rgba(91,85,214,.15)}.mxb.z.on{background:#2c2f7a;border-color:#2c2f7a;color:#fff}
+.mxreco{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 0;padding:14px 18px;border-radius:16px;background:linear-gradient(90deg,#fff4ee,#fff);border:1.5px solid #ffc4a8;color:#5a3a2e;text-decoration:none;font-size:14.5px}
+.mxreco b{color:#d9562a;margin-right:4px}.mxreco em{font-style:normal;font-weight:900;color:#fff;background:#e0632e;border-radius:999px;padding:7px 14px;white-space:nowrap;font-size:13.5px}.mxb small{display:block;font-weight:600;opacity:.8}.mx .na{color:#a3a6c4;font-size:12.5px}
 footer{padding:30px 0 90px;color:var(--sub);font-size:13px;text-align:center}
 @media(max-width:820px){.hero .in{grid-template-columns:1fr}.shelf{height:260px}.steps{grid-template-columns:1fr 1fr}.step.z{grid-column:span 2}.book{width:118px}}
 .recohero{padding:28px 0 18px}.rpanel{background:linear-gradient(135deg,#ffffff,#f3f1ff);border:2px solid #b9b3ff;border-radius:28px;padding:24px 24px 18px;box-shadow:0 16px 40px rgba(91,85,214,.16)}
@@ -148,16 +152,17 @@ footer{padding:30px 0 90px;color:var(--sub);font-size:13px;text-align:center}
 .bagimg{width:100%;height:auto;display:block;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
 .paper:hover .bagimg{animation:heavy .9s ease-in-out infinite}
 @keyframes heavy{0%,100%{transform:rotate(0)}30%{transform:translateY(4px) rotate(-1.4deg)}60%{transform:translateY(2px) rotate(1deg)}}
-.vcap{text-align:center}.vcap b{display:block;font:900 clamp(17px,2vw,24px)/1.3 "Gothic A1",sans-serif;color:#262a6e}.vcap span{display:block;margin-top:4px;font-weight:700;color:#6c6f99;font-size:clamp(13px,1.4vw,16px)}
+.vcap{text-align:center;position:relative;z-index:2}.vcap b{display:block;font:900 clamp(17px,2vw,24px)/1.3 "Gothic A1",sans-serif;color:#262a6e}.vcap span{display:block;margin-top:4px;font-weight:700;color:#6c6f99;font-size:clamp(13px,1.4vw,16px)}
 .vsbadge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(56px,7vw,86px);height:clamp(56px,7vw,86px);border-radius:50%;background:#2c2f7a;color:#fff;font:900 clamp(20px,2.6vw,30px) Poppins,"Gothic A1",sans-serif;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px #fff,0 14px 26px rgba(44,47,122,.3);z-index:5}
 .vstk{position:absolute;right:18px;top:16px;background:#fff;border:3px solid #5b55d6;color:#5b55d6;font:900 clamp(14px,1.6vw,19px) "Gothic A1",sans-serif;padding:6px 14px;border-radius:14px;transform:rotate(-6deg);z-index:3}
-.devs{position:relative;container-type:inline-size;width:80%;max-width:360px;aspect-ratio:1.18;height:auto;margin-left:auto;margin-right:auto;transform:translate(calc(var(--mx,0)*10px),calc(var(--my,0)*8px));transition:transform .2s}
-.tabl{position:absolute;left:2%;top:2%;width:62%;aspect-ratio:.76;height:auto;box-sizing:border-box;border-radius:7%/5.4%;background:linear-gradient(145deg,#4a4d57,#1d1f25);padding:3.2%;box-shadow:0 26px 40px rgba(40,35,110,.32),inset 0 0 0 2px #6b6f7a;transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.devs::before{content:"";display:block;padding-top:84.75%}
+.devs{position:relative;flex:none;container-type:inline-size;width:80%;max-width:360px;margin-left:auto;margin-right:auto;transform:translate(calc(var(--mx,0)*10px),calc(var(--my,0)*8px));transition:transform .2s}
+.tabl{position:absolute;left:2%;top:1.5%;width:62%;height:96.3%;overflow:hidden;box-sizing:border-box;border-radius:7%/5.4%;background:linear-gradient(145deg,#4a4d57,#1d1f25);padding:3.2%;box-shadow:0 26px 40px rgba(40,35,110,.32),inset 0 0 0 2px #6b6f7a;transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
 .tscr{width:100%;height:100%;border-radius:4.5%/3.4%;background:#eef0f6;overflow:hidden;display:flex;flex-direction:column}
 .tbar{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:4% 5% 3%;background:#f8f8fb;border-bottom:1px solid #dcdde6;font:700 clamp(8px,1vw,12px) "Gothic A1",sans-serif;color:#3b3d55;white-space:nowrap}.tbar span:first-child{color:#5b55d6}.tbar .tf{overflow:hidden;text-overflow:ellipsis}
 .tpg{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:5% 8%}.tpg img{height:100%;max-height:100%;width:auto;max-width:100%;object-fit:contain;box-shadow:0 8px 18px rgba(30,30,80,.22);border-radius:2px}
 .tth{display:flex;gap:4%;justify-content:center;padding:3% 0;background:#f8f8fb;border-top:1px solid #dcdde6}.tth i{width:6%;height:12px;background:#fff;border:1px solid #cfd0dc;border-radius:2px}.tth i.on{border:2px solid #5b55d6}
-.phone{position:absolute;right:1%;top:27%;width:31%;aspect-ratio:.56;height:auto;box-sizing:border-box;border-radius:5.2cqw;background:#14151a;padding:0;box-shadow:0 26px 40px rgba(40,35,110,.35),0 0 0 1.5px #9a9eab,inset 0 0 0 1px #3a3c45;transform:rotate(6deg);transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.phone{position:absolute;right:1%;top:26%;width:31%;height:65.3%;overflow:hidden;box-sizing:border-box;border-radius:5.2cqw;background:#14151a;padding:0;box-shadow:0 26px 40px rgba(40,35,110,.35),0 0 0 1.5px #9a9eab,inset 0 0 0 1px #3a3c45;transform:rotate(6deg);transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
 .pscr{position:absolute;inset:1.1cqw;border-radius:calc(5.2cqw - 1.1cqw);overflow:hidden;background:#fff}.pscr img{width:100%;display:block;margin-top:16%}
 .isl{position:absolute;left:50%;top:3.2%;width:30%;height:3.2%;transform:translateX(-50%);border-radius:20px;background:#0d0e12;z-index:2}
 .ebook:hover .tabl{transform:translateY(-6px)}.ebook:hover .phone{transform:rotate(2deg) translate(4%,-7%)}
@@ -244,8 +249,9 @@ footer{padding:30px 0 90px;color:var(--sub);font-size:13px;text-align:center}
 
 
 <section id="matrix" style="padding-top:6px"><div class="wrap">
-<h2>지역 · 과목으로 고르기</h2><p class="sec-sub">내 지역 줄에서 필요한 과목만 눌러 담으세요. 같은 문항을 쓰는 과목은 한 권으로 묶었어요.</p>
-<div class="mx"><table><thead><tr><th>지역</th><th>심층면접</th><th>수업실연</th><th>영어 실연·면접</th><th>과정안</th><th>기출</th></tr></thead><tbody id="mxb"></tbody></table></div>
+<h2>지역 · 과목으로 고르기</h2><p class="sec-sub">내 지역 줄에서 코어 Z 한 권, 또는 필요한 과목만 눌러 담으세요. 같은 문항을 쓰는 과목은 한 권으로 묶었어요.</p>
+<div class="mx"><table><thead><tr><th>지역</th><th class="zc">코어 Z · 한 권</th><th>심층면접</th><th>수업실연</th><th>영어 실연·면접</th><th>과정안</th><th>기출</th></tr></thead><tbody id="mxb"></tbody></table></div>
+<a class="mxreco" href="#reco" id="mxreco"><span><b>고르기 어렵다면?</b> 응시 지역만 고르면 필요한 조합을 바로 추천해 드려요.</span><em>추천 조합 보기 ↑</em></a>
 <div class="kn">평가원 지역 과정안은 부산·인천·대전·울산·경남만 봐요. 전남(수업실연·영어)은 평가원 줄에서 해당 과목을 고르세요.</div>
 </div></section>
 
@@ -571,20 +577,21 @@ function reco(){
   };
 }
 const MX = [
- ['서울', 'c1_int_seoul','c3_demo_seoul','c1_eng_seoul','c1_plan_seoul','c2_seoul'],
- ['경기', 'c1_int_gg','c3_demo_gg',['c1_eng_kice','평가원 문항'],null,'c2_gyeonggi'],
- ['평가원 지역', 'c1_int_kice','c1_demo_kice','c1_eng_kice','c1_plan_kice','c2_kice'],
- ['대구', 'c1_int_daegu','c1_demo_daegu','c1_eng_daegu',null,['','과목별 교재에 포함']],
- ['충북', 'c3_int_cb','c3_demo_cb',['c1_eng_kice','평가원 문항'],null,['','과목별 교재에 포함']],
- ['광주', ['c1_int_kice','평가원 문항'],['c3_gj','수업면접 포함'],['c1_eng_kice','평가원 문항'],null,['','광주 교재에 포함']],
- ['경북', 'c3_gb',['c1_demo_kice','평가원 문항'],['c1_eng_kice','평가원 문항'],null,'c2_kice']];
+ ['서울', ['z_seoul','zz'], 'c1_int_seoul','c3_demo_seoul','c1_eng_seoul','c1_plan_seoul','c2_seoul'],
+ ['경기', ['z_gyeonggi','zz'], 'c1_int_gg','c3_demo_gg',['c1_eng_kice','평가원 문항'],null,'c2_gyeonggi'],
+ ['평가원 지역', ['z_kice','zz'], 'c1_int_kice','c1_demo_kice','c1_eng_kice','c1_plan_kice','c2_kice'],
+ ['대구', ['z_daegu','zz'], 'c1_int_daegu','c1_demo_daegu','c1_eng_daegu',null,['','과목별 교재에 포함']],
+ ['충북', ['s_cb','zs'], 'c3_int_cb','c3_demo_cb',['c1_eng_kice','평가원 문항'],null,['','과목별 교재에 포함']],
+ ['광주', ['s_gj','zs'], ['c1_int_kice','평가원 문항'],['c3_gj','수업면접 포함'],['c1_eng_kice','평가원 문항'],null,['','광주 교재에 포함']],
+ ['경북', ['s_gb','zs'], 'c3_gb',['c1_demo_kice','평가원 문항'],['c1_eng_kice','평가원 문항'],null,'c2_kice']];
 function matrix(){
   document.getElementById('mxb').innerHTML = MX.map(row=>'<tr><td>'+row[0]+'</td>'+row.slice(1).map(c=>{
     if(c===null) return '<td class="na">시험 없음</td>';
-    const [k,note] = Array.isArray(c)?c:[c,''];
+    let [k,note] = Array.isArray(c)?c:[c,''];
     if(!k) return `<td class="na">${note}</td>`;
+    const z = note==='zz'||note==='zs'; const zn = note==='zz'?'이론·기출·실전':(note==='zs'?'지역 세트':''); if(z) note='';
     const it = byKey(k); const nm = it.name.replace(/^2027 /,'').replace(' 초등임용 2차','');
-    return `<td><button class="mxb ${sel.has(k)?'on':''}" data-mk="${k}">${nm}<small>${won(it.price)}${note?' · '+note:''}</small></button></td>`;
+    return `<td${z?' class="zc"':''}><button class="mxb ${z?'z':''} ${sel.has(k)?'on':''}" data-mk="${k}">${nm}<small>${won(it.price)}${note?' · '+note:''}${zn?'<br>'+zn:''}</small></button></td>`;
   }).join('')+'</tr>').join('');
   document.querySelectorAll('.mxb').forEach(b=>b.onclick=()=>{const k=b.dataset.mk; toggle(k,!sel.has(k)); render();});
 }
@@ -601,6 +608,7 @@ if(!EB){ const e=document.getElementById('ebline'); if(e) e.style.display='none'
    <p class="q"><small>2026학년도 기출</small>${esc(h[1])}</p><p class="c"><small>작년 코어 ${esc(h[2])}</small>${esc(h[3])}</p></div>`)).join('');
   document.getElementById('mtrack').innerHTML = cards + cards; })();
 shelf(); render(); compare(); reco();
+document.getElementById('mxreco').addEventListener('click',e=>{e.preventDefault();document.getElementById('reco').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>{const r=document.getElementById('rsel');if(r){r.focus({preventScroll:true});}},500);});
 document.querySelectorAll('.vsp').forEach(el=>{
   if (matchMedia('(hover:none)').matches) return;
   el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
