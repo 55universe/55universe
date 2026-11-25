@@ -43,6 +43,13 @@ section.part{margin:34px 0 0}
 .faq summary{font-weight:800;cursor:pointer;color:var(--navy)}
 .faq details p{margin:8px 0 0;font-size:15px}
 footer{margin:44px 0 0;padding:28px 0 40px;border-top:1px solid var(--line);text-align:center;font-size:13.5px;color:var(--sub)}
+.dl{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px auto 0;max-width:720px}
+.dlc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px 16px;text-align:center}
+.dlc b{display:block;font-size:15px;color:var(--navy)}
+.dlc small{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
+.dlc img{width:120px;height:120px;display:block;margin:10px auto;border-radius:8px}
+.dlc a{display:inline-block;background:var(--violet);color:#fff;text-decoration:none;font-weight:800;font-size:14px;border-radius:999px;padding:8px 14px}
+@media(max-width:620px){.dl{grid-template-columns:1fr}.dlc img{display:none}}
 #lb{position:fixed;inset:0;background:rgba(15,17,40,.88);display:none;align-items:center;justify-content:center;padding:16px;z-index:50;cursor:zoom-out}
 #lb img{max-width:100%;max-height:100%;border-radius:8px;background:#fff}
 #lb.on{display:flex}
@@ -57,8 +64,13 @@ footer{margin:44px 0 0;padding:28px 0 40px;border-top:1px solid var(--line);text
 <div class="note">
 코어 시리즈 PDF는 <b>보안이 적용된 전자책</b>이라 일반 PDF 프로그램(크롬, 엣지, 어도비 등)으로는 열리지 않아요. <b>ezPDF Reader</b>를 설치하고 <b>ezPDF 계정으로 로그인</b>해야 볼 수 있어요. 암호는 따로 없어요.
 </div>
+<div class="dl" id="download">
+<div class="dlc"><b>PC (윈도우)</b><small>ezPDF DRM Reader 3.0</small><img src="img/qr/pc.png" alt="PC 프로그램 다운로드 QR"><a href="https://drive.google.com/file/d/1cwYpESr6WfLGcjeLvJ7ziHfPtUEK7l77/view?usp=drive_link" target="_blank" rel="noopener">PC 프로그램 받기</a></div>
+<div class="dlc"><b>안드로이드</b><small>ezPDF DRM Reader 앱</small><img src="img/qr/android.png" alt="안드로이드 앱 QR"><a href="https://play.google.com/store/apps/details?id=udk.android.ezpdfdrmreader&amp;pcampaignid=web_share" target="_blank" rel="noopener">플레이스토어</a></div>
+<div class="dlc"><b>아이폰 · 아이패드</b><small>ezPDF DRM Reader 앱</small><img src="img/qr/ios.png" alt="애플 앱 QR"><a href="https://apps.apple.com/kr/app/ezpdf-drm-reader/id1367348074" target="_blank" rel="noopener">앱스토어</a></div>
+</div>
 <nav class="toc">
-<a href="#p1">1. 내려받기</a><a href="#p2">2. 리더 설치</a><a href="#p3">3. 파일 열기</a><a href="#p4">4. 로그인</a><a href="#p5">5. 인쇄</a><a href="#mobile">모바일</a><a href="#faq">자주 묻는 질문</a>
+<a href="#download">프로그램 · 앱 받기</a><a href="#p1">1. 내려받기</a><a href="#p2">2. 리더 설치</a><a href="#p3">3. 파일 열기</a><a href="#p4">4. 로그인</a><a href="#p5">5. 인쇄</a><a href="#mobile">모바일</a><a href="#faq">자주 묻는 질문</a>
 </nav>
 </div>
 </header>
@@ -84,7 +96,7 @@ footer{margin:44px 0 0;padding:28px 0 40px;border-top:1px solid var(--line);text
 <div class="ph"><div class="n">2</div><h2>ezPDF Reader 설치하기 (PC)</h2></div>
 <div class="step">
 <div class="t"><span>2-1</span>ezPDF Center에서 「ezPDF DRM 서비스 리더」를 받아요</div>
-<p>ezPDF Center 다운로드 페이지 아래쪽의 <b>ezPDF DRM 서비스 리더</b> 항목에서 다운로드를 눌러요.</p>
+<p><a href="https://drive.google.com/file/d/1cwYpESr6WfLGcjeLvJ7ziHfPtUEK7l77/view?usp=drive_link" target="_blank" rel="noopener"><b>PC 프로그램(ezPDF_DRM_Reader_3.0.0.4.exe) 바로 받기</b></a>를 누르거나, ezPDF Center 다운로드 페이지 아래쪽의 <b>ezPDF DRM 서비스 리더</b> 항목에서 다운로드를 눌러요.</p>
 <div class="warn"><b>다른 프로그램(Editor Uno, Editor 4.0, Editor 3.0)은 받지 마세요.</b> 반드시 「DRM 서비스 리더」를 받아야 해요.</div>
 <figure><img src="img/step03.png" width="1082" height="557" alt="ezPDF Center 다운로드 페이지의 DRM 서비스 리더" loading="lazy"></figure>
 </div>
@@ -156,18 +168,18 @@ footer{margin:44px 0 0;padding:28px 0 40px;border-top:1px solid var(--line);text
 <div class="ph"><div class="n">M</div><h2>모바일(휴대폰·태블릿)에서 보기</h2></div>
 <div class="mobile">
 <ol>
-<li>앱스토어나 플레이스토어에서 <b>ezPDF 뷰어</b> 앱을 설치해요.</li>
+<li><b>ezPDF DRM Reader</b> 앱을 설치해요. <a href="https://play.google.com/store/apps/details?id=udk.android.ezpdfdrmreader&amp;pcampaignid=web_share" target="_blank" rel="noopener">안드로이드(플레이스토어)</a> · <a href="https://apps.apple.com/kr/app/ezpdf-drm-reader/id1367348074" target="_blank" rel="noopener">아이폰 · 아이패드(앱스토어)</a></li>
 <li>메일의 내려받기 버튼으로 PDF를 기기에 저장해요.</li>
-<li>저장한 PDF를 ezPDF 뷰어 앱으로 열고, PC와 같은 ezPDF 계정으로 로그인해요.</li>
+<li>저장한 PDF를 ezPDF DRM Reader 앱으로 열고, PC와 같은 ezPDF 계정으로 로그인해요.</li>
 </ol>
 </div>
 </section>
 
 <section class="part faq" id="faq">
 <div class="ph"><div class="n">?</div><h2>자주 묻는 질문</h2></div>
-<details><summary>"암호가 걸려 있다"는 화면이 나와요.</summary><p>ezPDF가 아닌 다른 프로그램으로 열었을 때 나오는 화면이에요. 실제 암호는 없어요. ezPDF Reader(PC) 또는 ezPDF 뷰어 앱(모바일)으로 열어 주세요.</p></details>
+<details><summary>"암호가 걸려 있다"는 화면이 나와요.</summary><p>ezPDF가 아닌 다른 프로그램으로 열었을 때 나오는 화면이에요. 실제 암호는 없어요. ezPDF DRM Reader(PC 프로그램 · 모바일 앱)로 열어 주세요.</p></details>
 <details><summary>드라이브에서 "Secured PDF File"만 보여요.</summary><p>정상이에요. 드라이브 미리보기로는 볼 수 없으니 다운로드 버튼으로 기기에 저장한 뒤 ezPDF로 열어 주세요.</p></details>
-<details><summary>ezPDF Center에서 어떤 프로그램을 받아야 하나요?</summary><p>페이지 아래쪽의 「ezPDF DRM 서비스 리더」예요. Editor 프로그램들은 받지 않아도 돼요.</p></details>
+<details><summary>ezPDF Center에서 어떤 프로그램을 받아야 하나요?</summary><p>「ezPDF DRM 서비스 리더」예요. 이 페이지 위쪽의 <a href="#download">PC 프로그램 받기</a>로 바로 받을 수 있어요. Editor 프로그램들은 받지 않아도 돼요.</p></details>
 <details><summary>언제까지 볼 수 있나요?</summary><p>일반적으로 시험일까지 횟수 제한 없이 볼 수 있어요. 교재에 따라 달라질 수 있어요.</p></details>
 <details><summary>인쇄 횟수 제한은 어떻게 되나요?</summary><p>일반적으로 시험일까지 무제한 열람할 수 있고, 인쇄는 기본 1회에 여유분 2회를 더해 <b>총 3회</b> 제공돼요. 다만 교재에 따라 달라질 수 있어요. 인쇄 버튼을 누를 때마다 1회씩 줄어드니 전체 페이지로 한 번에 인쇄해 주세요.</p></details>
 <details><summary>그래도 안 열려요.</summary><p>어느 단계에서 막혔는지 화면을 캡처해 official.course.master@gmail.com으로 보내 주시면 확인해 드릴게요.</p></details>
