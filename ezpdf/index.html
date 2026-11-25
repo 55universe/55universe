@@ -43,13 +43,13 @@ section.part{margin:34px 0 0}
 .faq summary{font-weight:800;cursor:pointer;color:var(--navy)}
 .faq details p{margin:8px 0 0;font-size:15px}
 footer{margin:44px 0 0;padding:28px 0 40px;border-top:1px solid var(--line);text-align:center;font-size:13.5px;color:var(--sub)}
-.dl{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px auto 0;max-width:720px}
-.dlc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px 16px;text-align:center}
-.dlc b{display:block;font-size:15px;color:var(--navy)}
-.dlc small{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
-.dlc img{width:120px;height:120px;display:block;margin:10px auto;border-radius:8px}
-.dlc a{display:inline-block;background:var(--violet);color:#fff;text-decoration:none;font-weight:800;font-size:14px;border-radius:999px;padding:8px 14px}
-@media(max-width:620px){.dl{grid-template-columns:1fr}.dlc img{display:none}}
+.dl{display:grid;grid-template-columns:1fr;gap:22px;margin:22px auto 0;max-width:560px}
+.dlc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;display:grid;grid-template-columns:120px 1fr;column-gap:20px;align-items:center;text-align:left}
+.dlc img{grid-row:1/4;width:120px;height:120px;display:block;border-radius:8px}
+.dlc b{display:block;font-size:16px;color:var(--navy);align-self:end}
+.dlc small{display:block;font-size:13px;color:var(--sub);margin-top:2px}
+.dlc a{justify-self:start;align-self:start;display:inline-block;background:var(--violet);color:#fff;text-decoration:none;font-weight:800;font-size:14px;border-radius:999px;padding:8px 16px;margin-top:8px}
+@media(max-width:620px){.dlc{grid-template-columns:1fr}.dlc img{display:none}}
 #lb{position:fixed;inset:0;background:rgba(15,17,40,.88);display:none;align-items:center;justify-content:center;padding:16px;z-index:50;cursor:zoom-out}
 #lb img{max-width:100%;max-height:100%;border-radius:8px;background:#fff}
 #lb.on{display:flex}
@@ -65,9 +65,9 @@ footer{margin:44px 0 0;padding:28px 0 40px;border-top:1px solid var(--line);text
 코어 시리즈 PDF는 <b>보안이 적용된 전자책</b>이라 일반 PDF 프로그램(크롬, 엣지, 어도비 등)으로는 열리지 않아요. <b>ezPDF Reader</b>를 설치하고 <b>ezPDF 계정으로 로그인</b>해야 볼 수 있어요. 암호는 따로 없어요.
 </div>
 <div class="dl" id="download">
-<div class="dlc"><b>PC (윈도우)</b><small>ezPDF DRM Reader 3.0</small><img src="img/qr/pc.png" alt="PC 프로그램 다운로드 QR"><a href="https://drive.google.com/file/d/1cwYpESr6WfLGcjeLvJ7ziHfPtUEK7l77/view?usp=drive_link" target="_blank" rel="noopener">PC 프로그램 받기</a></div>
-<div class="dlc"><b>안드로이드</b><small>ezPDF DRM Reader 앱</small><img src="img/qr/android.png" alt="안드로이드 앱 QR"><a href="https://play.google.com/store/apps/details?id=udk.android.ezpdfdrmreader&amp;pcampaignid=web_share" target="_blank" rel="noopener">플레이스토어</a></div>
-<div class="dlc"><b>아이폰 · 아이패드</b><small>ezPDF DRM Reader 앱</small><img src="img/qr/ios.png" alt="애플 앱 QR"><a href="https://apps.apple.com/kr/app/ezpdf-drm-reader/id1367348074" target="_blank" rel="noopener">앱스토어</a></div>
+<div class="dlc"><img src="img/qr/pc.png" alt="PC 프로그램 다운로드 QR"><b>PC (윈도우)</b><small>ezPDF DRM Reader 3.0</small><a href="https://drive.google.com/file/d/1cwYpESr6WfLGcjeLvJ7ziHfPtUEK7l77/view?usp=drive_link" target="_blank" rel="noopener">PC 프로그램 받기</a></div>
+<div class="dlc"><img src="img/qr/android.png" alt="안드로이드 앱 QR"><b>안드로이드</b><small>ezPDF DRM Reader 앱</small><a href="https://play.google.com/store/apps/details?id=udk.android.ezpdfdrmreader&amp;pcampaignid=web_share" target="_blank" rel="noopener">플레이스토어</a></div>
+<div class="dlc"><img src="img/qr/ios.png" alt="애플 앱 QR"><b>아이폰 · 아이패드</b><small>ezPDF DRM Reader 앱</small><a href="https://apps.apple.com/kr/app/ezpdf-drm-reader/id1367348074" target="_blank" rel="noopener">앱스토어</a></div>
 </div>
 <nav class="toc">
 <a href="#download">프로그램 · 앱 받기</a><a href="#p1">1. 내려받기</a><a href="#p2">2. 리더 설치</a><a href="#p3">3. 파일 열기</a><a href="#p4">4. 로그인</a><a href="#p5">5. 인쇄</a><a href="#mobile">모바일</a><a href="#faq">자주 묻는 질문</a>
